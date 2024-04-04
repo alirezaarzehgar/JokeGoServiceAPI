@@ -5,8 +5,10 @@ import (
 
 	echojwt "github.com/labstack/echo-jwt/v4"
 	"github.com/labstack/echo/v4"
+	echoSwagger "github.com/swaggo/echo-swagger"
 
 	"github.com/BaseMax/JokeGoServiceAPI/controllers"
+	_ "github.com/BaseMax/JokeGoServiceAPI/docs"
 )
 
 func Init() *echo.Echo {
@@ -15,6 +17,10 @@ func Init() *echo.Echo {
 
 	e.POST("/register", controllers.Register)
 	e.POST("/login", controllers.Login)
+
+	if os.Getenv("DOCS") == "true" {
+		e.GET("/docs/*", echoSwagger.WrapHandler)
+	}
 
 	g := e.Group("/", echojwt.WithConfig(echojwt.Config{SigningKey: jwtKey}))
 	g.POST("refresh", controllers.Refresh)

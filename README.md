@@ -420,4 +420,4 @@ This endpoint retrieves all comments associated with a specific joke.
 }
 ```
 
-Copyright 2023, Max Base
+Copyright 2023, Alireza Arzehgar
